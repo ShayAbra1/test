@@ -2,7 +2,7 @@
 <html lang="he">
 <head>
     <meta charset="UTF-8">
-    <title>כרטיסיות צבעוניות</title>
+    <title>כרטיסיות מותאמות</title>
     <style>
         * {
             margin: 0;
@@ -19,47 +19,56 @@
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            gap: 5px;
+            gap: 1px; /* צמצום רווח */
             margin: 20px auto;
+            height: 572px; /* גובה מותאם */
             max-width: 90%;
-            height: 300px; /* גובה קבוע */
         }
 
-        /* עיצוב כרטיסיות */
         .card {
-            flex: 1;
-            height: 100%;
-            border: 1px solid #ccc;
+            width: 110px; /* רוחב של כרטיסייה סגורה */
+            height: 572px; /* גובה קבוע */
             cursor: pointer;
-            transition: flex 0.5s ease, background-color 0.3s ease;
+            transition: all 0.5s ease;
+            background-color: #ddd;
+            border: 1px solid #ccc;
+            position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
-            position: relative;
+            flex-direction: column;
+            overflow: hidden;
         }
 
         .card.open {
-            flex: 4; /* הכרטיסייה הפתוחה תתרחב */
+            width: 500px; /* כרטיסייה פתוחה מתרחבת */
             background-color: #fff;
         }
 
-        .card-title {
+        /* כותרת עם אייקון */
+        .card-header {
             writing-mode: vertical-rl;
             transform: rotate(180deg);
-            font-size: 18px;
-            z-index: 1;
+            font-size: 16px;
+            text-align: center;
+            margin-top: 10px;
         }
 
-        /* צבעים שונים לכרטיסיות */
-        .card:nth-child(1) { background-color: #FFCDD2; } /* אדום בהיר */
-        .card:nth-child(2) { background-color: #F8BBD0; } /* ורוד */
-        .card:nth-child(3) { background-color: #E1BEE7; } /* סגול בהיר */
-        .card:nth-child(4) { background-color: #D1C4E9; } /* סגול כהה */
-        .card:nth-child(5) { background-color: #C5CAE9; } /* כחול */
-        .card:nth-child(6) { background-color: #BBDEFB; } /* כחול בהיר */
-        .card:nth-child(7) { background-color: #B2EBF2; } /* טורקיז */
+        .card-header::before {
+            content: "📚"; /* אייקון לכרטיסייה */
+            font-size: 24px;
+            display: block;
+            margin-bottom: 10px;
+        }
 
-        /* תוכן מוסתר */
+        .card:nth-child(1) { background-color: #E8F0F2; }
+        .card:nth-child(2) { background-color: #D6E3E9; }
+        .card:nth-child(3) { background-color: #F3ECEA; }
+        .card:nth-child(4) { background-color: #FDF5E6; }
+        .card:nth-child(5) { background-color: #EAE2C8; }
+        .card:nth-child(6) { background-color: #DDEFE2; }
+        .card:nth-child(7) { background-color: #F7F8E0; }
+
         .card-content {
             position: absolute;
             top: 0;
@@ -67,25 +76,20 @@
             width: 100%;
             height: 100%;
             background-color: #fff;
-            display: flex;
+            display: none;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
-            z-index: 0;
+            padding: 20px;
         }
 
-        /* תוכן מוצג בכרטיסייה פתוחה */
         .card.open .card-content {
-            opacity: 1;
-            visibility: visible;
+            display: flex;
         }
 
         .card-content img {
             width: 80%;
-            max-height: 150px;
+            max-height: 250px;
             margin-bottom: 10px;
         }
 
@@ -105,9 +109,9 @@
 </head>
 <body>
 <div class="container">
-    <!-- 7 כרטיסיות -->
+    <!-- כרטיסיות -->
     <div class="card" onclick="openCard(this)">
-        <div class="card-title">כרטיסייה 1</div>
+        <div class="card-header">כרטיסייה 1</div>
         <div class="card-content">
             <img src="https://via.placeholder.com/600x200" alt="תמונה 1">
             <p>תוכן כרטיסייה 1</p>
@@ -115,7 +119,7 @@
         </div>
     </div>
     <div class="card" onclick="openCard(this)">
-        <div class="card-title">כרטיסייה 2</div>
+        <div class="card-header">כרטיסייה 2</div>
         <div class="card-content">
             <img src="https://via.placeholder.com/600x200" alt="תמונה 2">
             <p>תוכן כרטיסייה 2</p>
@@ -123,7 +127,7 @@
         </div>
     </div>
     <div class="card open" onclick="openCard(this)">
-        <div class="card-title">כרטיסייה 3</div>
+        <div class="card-header">כרטיסייה 3</div>
         <div class="card-content">
             <img src="https://via.placeholder.com/600x200" alt="תמונה 3">
             <p>תוכן כרטיסייה 3</p>
@@ -131,7 +135,7 @@
         </div>
     </div>
     <div class="card" onclick="openCard(this)">
-        <div class="card-title">כרטיסייה 4</div>
+        <div class="card-header">כרטיסייה 4</div>
         <div class="card-content">
             <img src="https://via.placeholder.com/600x200" alt="תמונה 4">
             <p>תוכן כרטיסייה 4</p>
@@ -139,7 +143,7 @@
         </div>
     </div>
     <div class="card" onclick="openCard(this)">
-        <div class="card-title">כרטיסייה 5</div>
+        <div class="card-header">כרטיסייה 5</div>
         <div class="card-content">
             <img src="https://via.placeholder.com/600x200" alt="תמונה 5">
             <p>תוכן כרטיסייה 5</p>
@@ -147,7 +151,7 @@
         </div>
     </div>
     <div class="card" onclick="openCard(this)">
-        <div class="card-title">כרטיסייה 6</div>
+        <div class="card-header">כרטיסייה 6</div>
         <div class="card-content">
             <img src="https://via.placeholder.com/600x200" alt="תמונה 6">
             <p>תוכן כרטיסייה 6</p>
@@ -155,7 +159,7 @@
         </div>
     </div>
     <div class="card" onclick="openCard(this)">
-        <div class="card-title">כרטיסייה 7</div>
+        <div class="card-header">כרטיסייה 7</div>
         <div class="card-content">
             <img src="https://via.placeholder.com/600x200" alt="תמונה 7">
             <p>תוכן כרטיסייה 7</p>
@@ -166,12 +170,9 @@
 
 <script>
     function openCard(clickedCard) {
-        // מסיר את המחלקה 'open' מכל הכרטיסיות
         document.querySelectorAll('.card').forEach(card => {
             card.classList.remove('open');
         });
-
-        // מוסיף את המחלקה 'open' לכרטיסייה שנלחצה
         clickedCard.classList.add('open');
     }
 </script>
