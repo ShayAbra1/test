@@ -2,26 +2,116 @@
 <html lang="he">
 <head>
     <meta charset="UTF-8">
-    <title>גלריית Swiper.js</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
+    <title>כרטיסיות נפתחות עם מיקום דינמי</title>
     <style>
-        .swiper-slide img { width: 100%; height: auto; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            direction: rtl;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px auto;
+            width: 90%;
+            max-width: 800px;
+        }
+        /* עיצוב כרטיסיות */
+        .card {
+            background-color: #e0e0e0;
+            border: 1px solid #ccc;
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .card:hover {
+            background-color: #d0d0d0;
+        }
+        .card-title {
+            font-size: 18px;
+        }
+        /* עיצוב תוכן נפתח */
+        .card-content {
+            display: none; /* מוסתר בהתחלה */
+            padding: 15px;
+            margin: 10px 0;
+            background-color: #ffffff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            transition: all 0.5s ease-in-out;
+        }
+        .card-content img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+        .card-content p {
+            margin: 10px 0;
+        }
+        .btn {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
-<body dir="rtl">
-<div class="swiper mySwiper">
-    <div class="swiper-wrapper">
-        <div class="swiper-slide"><img src="https://via.placeholder.com/300" alt="תמונה 1"></div>
-        <div class="swiper-slide"><img src="https://via.placeholder.com/300" alt="תמונה 2"></div>
+<body>
+<div class="container">
+    <!-- כרטיסיות -->
+    <div class="card" onclick="toggleCard(this)">
+        <div class="card-title">כרטיסייה 1</div>
+        <div class="card-content">
+            <img src="https://via.placeholder.com/600x200" alt="תמונה 1">
+            <p>תיאור לתמונה הראשונה. כאן תוכל להוסיף טקסט נוסף וכפתורים לפעולה.</p>
+            <a href="#" class="btn">קרא עוד</a>
+        </div>
     </div>
-    <div class="swiper-pagination"></div>
+    <div class="card" onclick="toggleCard(this)">
+        <div class="card-title">כרטיסייה 2</div>
+        <div class="card-content">
+            <img src="https://via.placeholder.com/600x200" alt="תמונה 2">
+            <p>תיאור לתמונה השנייה עם מידע נוסף ופעולות נוספות.</p>
+            <a href="#" class="btn">קרא עוד</a>
+        </div>
+    </div>
+    <div class="card" onclick="toggleCard(this)">
+        <div class="card-title">כרטיסייה 3</div>
+        <div class="card-content">
+            <img src="https://via.placeholder.com/600x200" alt="תמונה 3">
+            <p>כאן ניתן להציג מידע שונה לכל כרטיסייה.</p>
+            <a href="#" class="btn">קרא עוד</a>
+        </div>
+    </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 <script>
-    var swiper = new Swiper(".mySwiper", {
-        pagination: { el: ".swiper-pagination", clickable: true },
-    });
+    // פונקציה לפתיחה/סגירה של כרטיסייה
+    function toggleCard(cardElement) {
+        // סוגר כל תוכן אחר
+        document.querySelectorAll('.card-content').forEach(content => {
+            if (content.parentElement !== cardElement) {
+                content.style.display = 'none';
+            }
+        });
+
+        // מציג/מסתיר את התוכן של הכרטיסייה שנלחצה
+        const content = cardElement.querySelector('.card-content');
+        content.style.display = content.style.display === 'block' ? 'none' : 'block';
+    }
 </script>
 </body>
 </html>
