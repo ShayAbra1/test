@@ -2,7 +2,7 @@
 <html lang="he">
 <head>
     <meta charset="UTF-8">
-    <title>כרטיסיות נפתחות עם מיקום דינמי</title>
+    <title>כרטיסיות עומדות עם צבעים</title>
     <style>
         * {
             margin: 0;
@@ -16,45 +16,62 @@
         }
         .container {
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            justify-content: center;
+            align-items: flex-start;
             margin: 20px auto;
-            width: 90%;
-            max-width: 800px;
+            gap: 5px;
+            max-width: 90%;
         }
+
         /* עיצוב כרטיסיות */
         .card {
-            background-color: #e0e0e0;
+            width: 100px;
+            height: 300px;
             border: 1px solid #ccc;
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0;
             cursor: pointer;
-            transition: background 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background 0.3s, box-shadow 0.3s;
+            text-align: center;
         }
-        .card:hover {
-            background-color: #d0d0d0;
-        }
+        /* צבעים לכרטיסיות */
+        .card:nth-child(1) { background-color: #ffcccc; }
+        .card:nth-child(2) { background-color: #ffebcc; }
+        .card:nth-child(3) { background-color: #ffffcc; }
+        .card:nth-child(4) { background-color: #ccffcc; }
+        .card:nth-child(5) { background-color: #ccefff; }
+        .card:nth-child(6) { background-color: #e0ccff; }
+        .card:nth-child(7) { background-color: #ffccff; }
+
         .card-title {
             font-size: 18px;
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
         }
-        /* עיצוב תוכן נפתח */
+        .card:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        /* תוכן נפתח */
         .card-content {
-            display: none; /* מוסתר בהתחלה */
-            padding: 15px;
-            margin: 10px 0;
-            background-color: #ffffff;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            position: relative;
-            transition: all 0.5s ease-in-out;
+            display: none;
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            margin-top: 10px;
+            min-height: 250px; /* גובה מינימלי כדי למנוע קפיצה */
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+            opacity: 0;
+            visibility: hidden;
+            text-align: center;
         }
         .card-content img {
             max-width: 100%;
             height: auto;
             margin-bottom: 10px;
-        }
-        .card-content p {
-            margin: 10px 0;
         }
         .btn {
             display: inline-block;
@@ -67,50 +84,97 @@
         .btn:hover {
             background-color: #0056b3;
         }
+
+        /* תוכן פעיל */
+        .card-content.active {
+            display: block;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* מציג את התוכן של כרטיסיית ברירת המחדל */
+        #content-3 {
+            display: block;
+            opacity: 1;
+            visibility: visible;
+        }
     </style>
 </head>
 <body>
 <div class="container">
-    <!-- כרטיסיות -->
-    <div class="card" onclick="toggleCard(this)">
+    <!-- 7 כרטיסיות -->
+    <div class="card" onclick="openCardContent(0)">
         <div class="card-title">כרטיסייה 1</div>
-        <div class="card-content">
-            <img src="https://via.placeholder.com/600x200" alt="תמונה 1">
-            <p>תיאור לתמונה הראשונה. כאן תוכל להוסיף טקסט נוסף וכפתורים לפעולה.</p>
-            <a href="#" class="btn">קרא עוד</a>
-        </div>
     </div>
-    <div class="card" onclick="toggleCard(this)">
+    <div class="card" onclick="openCardContent(1)">
         <div class="card-title">כרטיסייה 2</div>
-        <div class="card-content">
-            <img src="https://via.placeholder.com/600x200" alt="תמונה 2">
-            <p>תיאור לתמונה השנייה עם מידע נוסף ופעולות נוספות.</p>
-            <a href="#" class="btn">קרא עוד</a>
-        </div>
     </div>
-    <div class="card" onclick="toggleCard(this)">
+    <div class="card" onclick="openCardContent(2)">
         <div class="card-title">כרטיסייה 3</div>
-        <div class="card-content">
-            <img src="https://via.placeholder.com/600x200" alt="תמונה 3">
-            <p>כאן ניתן להציג מידע שונה לכל כרטיסייה.</p>
-            <a href="#" class="btn">קרא עוד</a>
-        </div>
+    </div>
+    <div class="card" onclick="openCardContent(3)">
+        <div class="card-title">כרטיסייה 4</div>
+    </div>
+    <div class="card" onclick="openCardContent(4)">
+        <div class="card-title">כרטיסייה 5</div>
+    </div>
+    <div class="card" onclick="openCardContent(5)">
+        <div class="card-title">כרטיסייה 6</div>
+    </div>
+    <div class="card" onclick="openCardContent(6)">
+        <div class="card-title">כרטיסייה 7</div>
+    </div>
+</div>
+
+<!-- התכנים הנפתחים -->
+<div id="cardContents">
+    <div class="card-content" id="content-0">
+        <img src="https://via.placeholder.com/600x200" alt="תמונה 1">
+        <p>תוכן כרטיסייה 1.</p>
+        <a href="#" class="btn">קרא עוד</a>
+    </div>
+    <div class="card-content" id="content-1">
+        <img src="https://via.placeholder.com/600x200" alt="תמונה 2">
+        <p>תוכן כרטיסייה 2.</p>
+        <a href="#" class="btn">קרא עוד</a>
+    </div>
+    <div class="card-content" id="content-2">
+        <img src="https://via.placeholder.com/600x200" alt="תמונה 3">
+        <p>תוכן כרטיסייה 3.</p>
+        <a href="#" class="btn">קרא עוד</a>
+    </div>
+    <div class="card-content active" id="content-3">
+        <img src="https://via.placeholder.com/600x200" alt="תמונה 4">
+        <p>תוכן כרטיסייה 4 (פתוחה כברירת מחדל).</p>
+        <a href="#" class="btn">קרא עוד</a>
+    </div>
+    <div class="card-content" id="content-4">
+        <img src="https://via.placeholder.com/600x200" alt="תמונה 5">
+        <p>תוכן כרטיסייה 5.</p>
+        <a href="#" class="btn">קרא עוד</a>
+    </div>
+    <div class="card-content" id="content-5">
+        <img src="https://via.placeholder.com/600x200" alt="תמונה 6">
+        <p>תוכן כרטיסייה 6.</p>
+        <a href="#" class="btn">קרא עוד</a>
+    </div>
+    <div class="card-content" id="content-6">
+        <img src="https://via.placeholder.com/600x200" alt="תמונה 7">
+        <p>תוכן כרטיסייה 7.</p>
+        <a href="#" class="btn">קרא עוד</a>
     </div>
 </div>
 
 <script>
-    // פונקציה לפתיחה/סגירה של כרטיסייה
-    function toggleCard(cardElement) {
-        // סוגר כל תוכן אחר
+    function openCardContent(index) {
         document.querySelectorAll('.card-content').forEach(content => {
-            if (content.parentElement !== cardElement) {
-                content.style.display = 'none';
-            }
+            content.classList.remove('active');
         });
 
-        // מציג/מסתיר את התוכן של הכרטיסייה שנלחצה
-        const content = cardElement.querySelector('.card-content');
-        content.style.display = content.style.display === 'block' ? 'none' : 'block';
+        const targetContent = document.getElementById(`content-${index}`);
+        if (targetContent) {
+            targetContent.classList.add('active');
+        }
     }
 </script>
 </body>
