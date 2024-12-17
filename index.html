@@ -2,7 +2,7 @@
 <html lang="he">
 <head>
     <meta charset="UTF-8">
-    <title>כרטיסיות אנכיות נפתחות</title>
+    <title>כרטיסיות צבעוניות</title>
     <style>
         * {
             margin: 0;
@@ -29,7 +29,6 @@
         .card {
             flex: 1;
             height: 100%;
-            background-color: #ddd;
             border: 1px solid #ccc;
             cursor: pointer;
             transition: flex 0.5s ease, background-color 0.3s ease;
@@ -50,6 +49,15 @@
             font-size: 18px;
             z-index: 1;
         }
+
+        /* צבעים שונים לכרטיסיות */
+        .card:nth-child(1) { background-color: #FFCDD2; } /* אדום בהיר */
+        .card:nth-child(2) { background-color: #F8BBD0; } /* ורוד */
+        .card:nth-child(3) { background-color: #E1BEE7; } /* סגול בהיר */
+        .card:nth-child(4) { background-color: #D1C4E9; } /* סגול כהה */
+        .card:nth-child(5) { background-color: #C5CAE9; } /* כחול */
+        .card:nth-child(6) { background-color: #BBDEFB; } /* כחול בהיר */
+        .card:nth-child(7) { background-color: #B2EBF2; } /* טורקיז */
 
         /* תוכן מוסתר */
         .card-content {
